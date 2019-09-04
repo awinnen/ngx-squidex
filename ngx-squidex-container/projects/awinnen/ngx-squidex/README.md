@@ -1,24 +1,81 @@
-# NgxSquidex
+# @awinnen/ngx-squidex
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.0.3.
+Angular Library for headless CMS [Squidex](https://squidex.io/)
 
-## Code scaffolding
+Changelog: [https://github.com/awinnen/ngx-squidex](https://github.com/awinnen/ngx-squidex)
 
-Run `ng generate component component-name --project ngx-squidex` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ngx-squidex`.
-> Note: Don't forget to add `--project ngx-squidex` or else it will be added to the default project in your `angular.json` file. 
+## Table of Contents
+* [Installation](#installation)
+* [Usage](#usage)
 
-## Build
 
-Run `ng build ngx-squidex` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Installation
 
-## Publishing
+Install the npm module:
 
-After building your library with `ng build ngx-squidex`, go to the dist folder `cd dist/ngx-squidex` and run `npm publish`.
+```sh
+npm install @awinnen/ngx-squidex --save
+```
 
-## Running unit tests
 
-Run `ng test ngx-squidex` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Usage
 
-## Further help
+#### 1. Import the `SquidexCMSModule`:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+```ts
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import { SquidexCMSModule } from  '@awinnen/ngx-squidex';
+
+@NgModule({
+    imports: [
+        BrowserModule,
+        SquidexCMSModule
+    ],
+    bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
+
+#### 2. Provide `SquidexCMSConfig` in your AppModule
+
+You must provide an SquidexCMSConfig instance. Set `clientId`, `clientSecret`, `url` and `app` fields.
+Optionally, you can provide a defaultRequestContext which will set some headers to retrieve only certain languages. Refer to Squidex [docs](https://docs.squidex.io/concepts/localization)
+```ts
+import { SquidexCMSConfig } from  '@awinnen/ngx-squidex';
+
+@NgModule({
+	providers: [
+		{
+			provide:  SquidexCMSConfig,
+			useValue:  Object.assign(new SquidexCMSConfig(), {
+				clientId:  "my-squidex-app:public",
+				clientSecret:  "2ec71a67-51ec-4130-8c31-b93469c24efa",
+				url:  "https://cloud.squidex.io",
+				app:  "my-squidex-app",
+				defaultRequestContext: {
+					flatten:  true,
+					languages: ['de']
+				}
+			} as  Partial<SquidexCMSConfig>)
+		}
+	]
+```
+
+#### 3. Use `SquidexService` to Query your CMS
+
+```ts
+import { SquidexService, SquidexResponse } from  '@awinnen/ngx-squidex';
+
+@Injectable({ providedIn: "root" })
+export class DataService {
+	constructor(private squidexService: SquidexService) {}
+	
+	public queryWithContext<T>(schema:  string): Observable<SquidexResponse<T>> {
+		return  this.squidexService.query<T>(schema, { 
+			flatten:  true, 
+			languages: ["en", "de"] 
+		});
+	} 
+}
+```

@@ -9,7 +9,11 @@ import { SquidexResponse } from '../interfaces/squidexResponse';
 @Injectable()
 export class SquidexService {
 
-  constructor(private httpClient: HttpClient, private squidexConfig: SquidexCMSConfig) { }
+  constructor(private httpClient: HttpClient, private squidexConfig: SquidexCMSConfig) {
+    if(!(squidexConfig instanceof SquidexCMSConfig)) {
+      throw new Error("squidexConfig is not instanceof SquidexCMSConfig");
+    }
+   }
 
   public query<T>(url: string, context: SquidexRequestContext = this.squidexConfig.defaultRequestContext): Observable<SquidexResponse<T>> {
     let headers = new HttpHeaders();
