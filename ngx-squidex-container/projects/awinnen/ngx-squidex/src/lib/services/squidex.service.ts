@@ -11,7 +11,7 @@ export class SquidexService {
 
   constructor(private httpClient: HttpClient, private squidexConfig: SquidexCMSConfig) {
     if(!(squidexConfig instanceof SquidexCMSConfig)) {
-      throw new Error("squidexConfig is not instanceof SquidexCMSConfig");
+      throw new TypeError("squidexConfig is not instanceof SquidexCMSConfig");
     }
    }
 
