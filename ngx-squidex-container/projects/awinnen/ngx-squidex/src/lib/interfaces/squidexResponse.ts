@@ -11,8 +11,8 @@ export interface SquidexItem<T> {
     lastModifiedBy: string;
     data: T;
     isPending: boolean;
-    created: Date;
-    lastModified: Date;
+    created: string;
+    lastModified: string;
     status: string;
     statusColor: string;
     version: number;
