@@ -6,9 +6,10 @@ import { SquidexCMSConfig } from '../interfaces/squidexCMSConfig';
 })
 export class AssetPipe implements PipeTransform {
 
-  constructor(private config: SquidexCMSConfig) {}
-  transform(assetId: any, ...args: any[]): any {
-    return `${this.config.url}/api/assets/${assetId}`;
+  constructor(private config: SquidexCMSConfig) { }
+  transform(assetId: any, params: any): any {
+    const query = params ? '?' + Object.entries(params).map(([key, value]) => `${key}=${value}`).join('&') : '';
+    return `${this.config.url}/api/assets/${assetId}${query}`;
   }
 
 }
