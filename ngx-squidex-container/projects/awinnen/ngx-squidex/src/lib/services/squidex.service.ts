@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { SquidexCMSConfig } from '../interfaces/squidexCMSConfig';
 import { SquidexRequestContext } from '../interfaces/squidexRequestContext';
 import { SquidexResponse } from '../interfaces/squidexResponse';
+import { SquidexUser } from '../interfaces/squidexUser';
 
 @Injectable()
 export class SquidexService {
@@ -38,6 +39,10 @@ export class SquidexService {
 
   public delete(schema: string, id: string): Observable<any> {
     return this.httpClient.delete<any>(`${this.squidexConfig.url}/api/content/${this.squidexConfig.app}/${schema}/${id}`);
+  }
+
+  public getUserById(id: string): Observable<SquidexUser> {
+    return this.httpClient.get<SquidexUser>(`${this.squidexConfig.url}/api/users/${id}`);
   }
 
   public retrieveToken(): Observable<string> {

@@ -8,6 +8,7 @@
 export * from './lib/interfaces/squidexCMSConfig';
 export * from './lib/interfaces/squidexRequestContext';
 export * from './lib/interfaces/squidexResponse';
+export * from './lib/interfaces/squidexUser';
 
 /** Pipes */
 export * from './lib/pipes/asset.pipe';
