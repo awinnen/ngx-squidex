@@ -1,6 +1,6 @@
 {
   "name": "@awinnen/ngx-squidex",
-  "version": "0.0.9",
+  "version": "0.0.11",
   "scripts": {
     "increase-version-patch": "npm version patch",
     "increase-version-minor": "npm version minor"

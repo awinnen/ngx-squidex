@@ -4,4 +4,5 @@ export interface SquidexUser {
     displayName: string;
     isLocked: boolean;
     permissions: any[];
+    pictureUrl: string;
 }
