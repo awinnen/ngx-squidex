@@ -25,6 +25,9 @@ export class SquidexService {
       if (context.languages) {
         headers = headers.append('X-Languages', context.languages.join(','))
       }
+      if(context.unpublished) {
+        headers = headers.append('X-Unpublished', 'true');
+      }
     }
     return this.httpClient.get<SquidexResponse<T>>(`${this.squidexConfig.url}/api/content/${this.squidexConfig.app}/${url}`, { headers });
   }
