@@ -1,13 +1,13 @@
 {
   "name": "@awinnen/ngx-squidex",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "scripts": {
     "increase-version-patch": "npm version patch",
     "increase-version-minor": "npm version minor"
   },
   "peerDependencies": {
-    "@angular/common": "^8.0.3",
-    "@angular/core": "^8.0.3"
+    "@angular/common": "^12.0.0",
+    "@angular/core": "^12.0.0"
   },
   "license": "MIT"
 }

@@ -50,12 +50,12 @@ export class SquidexService {
 
   public retrieveToken(): Observable<string> {
     const body = `grant_type=client_credentials&client_id=${this.squidexConfig.clientId}&client_secret=${this.squidexConfig.clientSecret}&scope=squidex-api`;
-    return this.httpClient.post<any>(`${this.squidexConfig.url}/identity-server/connect/token`, body, {
+    return this.httpClient.post<{ access_token: string}>(`${this.squidexConfig.url}/identity-server/connect/token`, body, {
       headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
     }).pipe(
-      map(response => {
+      map((response: {access_token: string}) => {
         this.squidexConfig.storageGetterFn().setItem(this.squidexConfig.storageKey, response.access_token)
-        return response;
+        return response.access_token;
       })
     );
   }
